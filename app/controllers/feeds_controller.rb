@@ -10,7 +10,7 @@ class FeedsController < ApplicationController
   # GET /feeds/1
   # GET /feeds/1.json
   def show
-    render xml: @feed
+    render xml: @feed.last_body || "<no-content></no-content>"
   end
 
   # GET /feeds/new
