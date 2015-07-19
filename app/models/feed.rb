@@ -18,21 +18,27 @@ class Feed < ActiveRecord::Base
     end
     
     def push
-        raise "pushing"
-        if self.push_url.present?
 
-            uri = URI.parse( self.push_url )
-    
-            http = Net::HTTP.new(uri.host, uri.port)
-            
-            request = Net::HTTP::Post.new(uri.request_uri)
-            request.set_form_data({"body" => "My query #{Time.now}"})
-            
-            response = http.request(request)
-            
-            self.pushed_at = Time.now if response.status == 200
+        if self.push_url.present?
+            begin
+                uri = URI.parse( self.push_url )
+        
+                http = Net::HTTP.new(uri.host, uri.port)
+                http.use_ssl = (uri.scheme == "https")
+                request = Net::HTTP::Post.new(uri.request_uri)
+                request.set_form_data({feed: {last_body: "My query #{Time.now}"}})
+                
+                response = http.request(request)
+                
+                self.pushed_at = Time.now if response.status == 200
+                [true, :success]
+            rescue
+                # tried to push but failed
+                [false, :tried_to_push_but_failed]
+            end
         else
             puts "no push_url"
+            [false, :no_push_url_defined]
         end
     end
     

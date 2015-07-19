@@ -15,9 +15,8 @@ POST http://www.outside_firewall.com/staff_events
 ```
 where 'staff_events' is the feed name and will also contain parameters:
 
-- key=[SECRET_KEY]
-- format=XML or JSON
-- body=[BODY]
+- feed[last_format] = XML or JSON
+- feed[last_body] = BODY
 
 ## Getting the list of feed names
 ```GET http://www.outside_firewall.com```

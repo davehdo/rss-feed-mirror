@@ -14,7 +14,7 @@ class FeedsController < ApplicationController
   end
 
   def push
-    @feed.push  
+    render json: @feed.push
   end
   
   # GET /feeds/new
@@ -92,6 +92,6 @@ class FeedsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def feed_params
-      params.require(:feed).permit(:name, :original_url, :last_pulled_at, :last_pushed_at, :last_body, :last_format)
+      params.require(:feed).permit(:name, :original_url, :push_url, :last_body, :last_format)
     end
 end
