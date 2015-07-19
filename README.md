@@ -27,4 +27,4 @@ if "staff_events" does not exist yet on the outside node, it will create it.
 
 ## Subscribing to a feed
 ```GET http://www.outside_firewall.com/feeds/staff_events```
-with no parameters
+with no parameters 
