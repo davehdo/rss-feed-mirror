@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @feed.name %>
+</p>
+
+<p>
+  <strong>Original url:</strong>
+  <%= @feed.original_url %>
+</p>
+
+<p>
+  <strong>Last pulled at:</strong>
+  <%= @feed.last_pulled_at %>
+</p>
+
+<p>
+  <strong>Last pushed at:</strong>
+  <%= @feed.last_pushed_at %>
+</p>
+
+<p>
+  <strong>Last body:</strong>
+  <%= @feed.last_body %>
+</p>
+
+<p>
+  <strong>Last format:</strong>
+  <%= @feed.last_format %>
+</p>
+
+<%= link_to 'Edit', edit_feed_path(@feed) %> |
+<%= link_to 'Back', feeds_path %> | 
+<%= link_to 'Destroy', @feed, method: :delete, data: { confirm: 'Are you sure?' } %>

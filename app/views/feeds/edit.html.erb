@@ -1,0 +1,7 @@
+<h1>Editing Feed</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @feed %> | 
+<%= link_to 'Destroy', @feed, method: :delete, data: { confirm: 'Are you sure?' } %> | 
+<%= link_to 'Back', feeds_path %>

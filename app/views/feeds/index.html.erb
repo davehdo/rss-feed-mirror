@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Feeds</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Original url</th>
+      <th>Push url</th>
+      <th>Last body</th>
+      <th>Last format</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @feeds.each do |feed| %>
+      <tr>
+        <td><%= link_to feed.name, edit_feed_path(feed) %></td>
+        <td><%= feed.original_url %> <%= "(Last fetched #{time_ago_in_words(feed.last_pulled_at)} ago)" if feed.last_pulled_at %></td>
+        <td><%= feed.push_url %> <%= "(Last pushed #{time_ago_in_words(feed.last_pushed_at)} ago)" if feed.last_pushed_at %></td>
+        <td><%= feed.last_body.present? ? feed.last_body.first(100) : "" %> (<%= link_to 'Show more...', feed %>)</td>
+        <td><%= feed.last_format %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Feed', new_feed_path, class: "btn btn-default" %>
