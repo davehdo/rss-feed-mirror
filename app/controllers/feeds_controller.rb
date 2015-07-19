@@ -1,5 +1,5 @@
 class FeedsController < ApplicationController
-  before_action :set_feed, only: [:show, :edit, :update, :destroy]
+  before_action :set_feed, only: [:show, :edit, :update, :destroy, :push]
 
   # GET /feeds
   # GET /feeds.json
@@ -13,6 +13,10 @@ class FeedsController < ApplicationController
     render xml: @feed.last_body || "<no-content></no-content>"
   end
 
+  def push
+    @feed.push  
+  end
+  
   # GET /feeds/new
   def new
     @feed = Feed.new
@@ -22,6 +26,20 @@ class FeedsController < ApplicationController
   def edit
   end
 
+  def update_or_create
+    @feed = Feed.find_by_name( params[:id].parameterize ) || Feed.create!( name: params[:id].parameterize )
+    
+    respond_to do |format|
+      if @feed.update(feed_params)
+        format.html { redirect_to @feed, notice: 'Feed was successfully updated.' }
+        format.json { render :show, status: :ok, location: @feed }
+      else
+        format.html { render :edit }
+        format.json { render json: @feed.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   # POST /feeds
   # POST /feeds.json
   def create

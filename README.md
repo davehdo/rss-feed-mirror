@@ -2,24 +2,26 @@
 ## Introduction
 Sometimes you wish to broadcast a feed but its behind a firewall. This app lets you POST snapshots of a feed (XML, json, etc) to an external site. The user can request the data in any format. Run two instances of this app, one behind the firewall and one outside.
 
-## Behind the firewall
+## Set up a node behind the firewall to send broadcasts
+1. Deploy app
+2. Create feeds
+3. For each feed, choose a post_url e.g. ```http://www.outside_firewall.com/staff_events``` 
+4. Set up a scheduled event on your server to fetch feeds and post them
 
-## Broadcasting
+## Set up a node outside firewall to recieve broadcasts
+The inside node will request
 ```
-POST https://rss-feed-mirror-davehdo.c9.io/snapshots
+POST http://www.outside_firewall.com/staff_events
 ```
-with parameters
+where 'staff_events' is the feed name and will also contain parameters:
 
 - key=[SECRET_KEY]
-- feed_name=staff_events
 - format=XML or JSON
 - body=[BODY]
 
 ## Getting the list of feed names
-GET https://rss-feed-mirror-davehdo.c9.io/snapshots
-with parameters
+```GET http://www.outside_firewall.com```
 
-- key=[SECRET_KEY]
-Subscribing to a feed
-GET https://rss-feed-mirror-davehdo.c9.io/snapshots/staff_events
+## Subscribing to a feed
+```GET http://www.outside_firewall.com/staff_events```
 with no parameters
